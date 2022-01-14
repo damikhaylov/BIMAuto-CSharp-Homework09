@@ -17,59 +17,25 @@ namespace Task1
             для защиты от ввода некорректных данных.
              */
 
-            int x = 0;
-            int y = 0;
-            int operation = 0;
-            double result = 0;
-            bool noErrors = true;
             Console.WriteLine("Калькулятор\n");
 
-            Console.Write("Введите целое число: X = ");
+            double result;
+
             try
             {
-                x = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Ошибка! " + ex.Message);
-                noErrors = false;
-            }
+                Console.Write("Введите целое число: X = ");
+                int x = Convert.ToInt32(Console.ReadLine());
 
-            if (noErrors)
-            {
                 Console.Write("Введите целое число: Y = ");
-                try
-                {
-                    y = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Ошибка! " + ex.Message);
-                    noErrors = false;
-                }
-            }
+                int y = Convert.ToInt32(Console.ReadLine());
 
-            if (noErrors)
-            {
                 Console.WriteLine("Введите код операции:\n" +
                                       "\t1 - сложение\n" +
                                       "\t2 - вычитание\n" +
                                       "\t3 - произведение\n" +
                                       "\t4 - частное");
+                int operation = Convert.ToInt32(Console.ReadLine());
                 Console.Write("Ваш выбор: ");
-                try
-                {
-                    operation = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Ошибка! " + ex.Message);
-                    noErrors = false;
-                }
-            }
-
-            if (noErrors)
-            {
                 switch (operation)
                 {
                     case 1:
@@ -89,21 +55,16 @@ namespace Task1
                         break;
 
                     default:
-                        Console.WriteLine("Ошибка! " + "Нет операции с указанным номером.");
-                        noErrors = false;
-                        break;
+                        throw new Exception(String.Format("Не существует операции с кодом {0}.", operation));
                 }
-            }
 
-            if (noErrors)
-            {
                 Console.WriteLine("Результат = {0}", result);
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Выполнение программы прервано.");
-            }
-
+                Console.WriteLine("Ошибка! " + ex.Message);
+            }  
+            
             Console.ReadKey();
         }
     }
